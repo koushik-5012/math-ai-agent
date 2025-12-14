@@ -1,0 +1,16 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+
+# FAISS index files
+faiss.index
+faiss_meta.json
+
+# OS files
+.DS_Store
