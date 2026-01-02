@@ -1,6 +1,7 @@
-# Math AI Agent 
+# Math AI Agent
 
-A multimodal AI agent that solves math problems using:
+A multimodal AI system that solves math problems using:
+
 - Text input
 - Image OCR
 - Audio speech recognition
@@ -42,48 +43,51 @@ graph TD
     KB --> VectorStore
 
 Setup
-Clone repo
-git clone https://github.com/<your-username>/math-ai-agent.git
+Clone repository
+git clone https://github.com/koushik-5012/math-ai-agent.git
 cd math-ai-agent
 
-Create env file
-cp .env.example .env
-
-
-Add your API keys in .env.
-
-Run with Docker
+Run Backend (Docker)
 docker compose up --build
 
 
-Open:
+Open API docs:
 
 http://localhost:7860/docs
 
 API Usage
-Mode	Field
-text	mode=text, question="2+2"
-image	mode=image, file=image.png
-audio	mode=audio, file=audio.wav
+
+Endpoint:
+
+POST /ask
+
+
+Form fields:
+
+Field	Type	Description
+mode	string	text / image / audio
+question	string	text input (for text mode)
+file	file	image or audio file
+Tech Stack
+
+FastAPI
+
+FAISS
+
+React
+
+Docker
+
+Pytesseract
+
+SpeechRecognition
+
 
 ---
 
-#  Initialize Git Safely
-
-In project root:
-
-
-Then all your setup instructions (`git clone`, `docker-compose`, etc.) must come **after** that closing 
-
----
-
-## Commit and push
+## Step 3 — Commit and push
 
 ```bash
 git add README.md
-git commit -m "Fix broken mermaid block"
+git commit -m "Fix README mermaid architecture diagram"
 git push
-
-Check files — if .env is staged remove it:
-
-git rm --cached .env
