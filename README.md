@@ -14,19 +14,20 @@ A multimodal AI system that solves math problems using:
 graph TD
     UI[React Frontend]
     API[FastAPI Backend]
-    Router
-    TextFlow
-    ImageFlow
-    AudioFlow
+    Router[Request Router]
+    TextFlow[Text Input Flow]
+    ImageFlow[Image Input Flow]
+    AudioFlow[Audio Input Flow]
     OCR[Pytesseract OCR]
     ASR[Speech Recognition]
-    Parser
-    RouterAgent
+    Parser[Problem Parser]
+    RouterAgent[Intent Router]
     KB[Knowledge Base]
     VectorStore[FAISS Vector Store]
 
-    UI -->|POST /ask| API
+    UI --> API
     API --> Router
+
     Router --> TextFlow
     Router --> ImageFlow
     Router --> AudioFlow
