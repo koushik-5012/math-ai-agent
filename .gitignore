@@ -1,16 +1,26 @@
-# Environment variables
-.env
-
 # Python
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 venv/
 
-# FAISS index files
-faiss.index
-faiss_meta.json
+# Environment
+.env
 
-# OS files
+# Logs
+logs/
+*.log
+
+# FAISS Vector Index (DO NOT COMMIT)
+faiss.index
+faiss.meta.json
+data/faiss.index
+data/faiss.meta.json
+backend/data/faiss.index
+backend/data/faiss.meta.json
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# OS
 .DS_Store

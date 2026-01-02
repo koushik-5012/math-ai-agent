@@ -1,0 +1,394 @@
+[
+  {
+    "id": "ALG-01",
+    "topic": "algebra",
+    "difficulty": "easy",
+    "question": "Solve the equation 2x + 3 = 7.",
+    "answer": "The solution is x = 2.",
+    "steps": [
+      "Start with the equation 2x + 3 = 7",
+      "Subtract 3 from both sides to get 2x = 4",
+      "Divide both sides by 2 to get x = 2"
+    ],
+    "tags": [
+      "linear equation",
+      "basic algebra"
+    ]
+  },
+  {
+    "id": "ALG-02",
+    "topic": "algebra",
+    "difficulty": "easy",
+    "question": "Solve x - 5 = 10.",
+    "answer": "The solution is x = 15.",
+    "steps": [
+      "Start with x - 5 = 10",
+      "Add 5 to both sides",
+      "x = 15"
+    ],
+    "tags": [
+      "linear equation"
+    ]
+  },
+  {
+    "id": "ALG-03",
+    "topic": "algebra",
+    "difficulty": "medium",
+    "question": "Solve the system of equations: x + y = 10 and x - y = 2.",
+    "answer": "The solution is x = 6 and y = 4.",
+    "steps": [
+      "Add both equations to eliminate y",
+      "2x = 12, so x = 6",
+      "Substitute x = 6 into x + y = 10",
+      "y = 4"
+    ],
+    "tags": [
+      "systems of equations"
+    ]
+  },
+  {
+    "id": "ALG-04",
+    "topic": "algebra",
+    "difficulty": "medium",
+    "question": "Factor the expression x^2 - 9.",
+    "answer": "The factorization is (x - 3)(x + 3).",
+    "steps": [
+      "Recognize this as a difference of squares",
+      "Apply the identity a^2 - b^2 = (a - b)(a + b)",
+      "Here, a = x and b = 3"
+    ],
+    "tags": [
+      "factoring",
+      "polynomials"
+    ]
+  },
+  {
+    "id": "ALG-05",
+    "topic": "algebra",
+    "difficulty": "medium",
+    "question": "Solve the quadratic equation x^2 - 5x + 6 = 0.",
+    "answer": "The solutions are x = 2 and x = 3.",
+    "steps": [
+      "Factor the quadratic into (x - 2)(x - 3)",
+      "Set each factor equal to zero",
+      "Solve x = 2 and x = 3"
+    ],
+    "tags": [
+      "quadratic equations"
+    ]
+  },
+  {
+    "id": "ALG-06",
+    "topic": "algebra",
+    "difficulty": "hard",
+    "question": "Solve for x: 3(x - 2) = 2(x + 5).",
+    "answer": "The solution is x = 16.",
+    "steps": [
+      "Expand both sides: 3x - 6 = 2x + 10",
+      "Subtract 2x from both sides",
+      "Add 6 to both sides",
+      "x = 16"
+    ],
+    "tags": [
+      "linear equations"
+    ]
+  },
+  {
+    "id": "CAL-01",
+    "topic": "calculus",
+    "difficulty": "easy",
+    "question": "Find the derivative of f(x) = x^2.",
+    "answer": "The derivative is f'(x) = 2x.",
+    "steps": [
+      "Apply the power rule",
+      "The derivative of x^n is n*x^(n-1)",
+      "So the derivative is 2x"
+    ],
+    "tags": [
+      "derivatives"
+    ]
+  },
+  {
+    "id": "CAL-02",
+    "topic": "calculus",
+    "difficulty": "easy",
+    "question": "Find the derivative of f(x) = 3x + 5.",
+    "answer": "The derivative is f'(x) = 3.",
+    "steps": [
+      "Derivative of 3x is 3",
+      "Derivative of constant 5 is 0",
+      "So f'(x) = 3"
+    ],
+    "tags": [
+      "derivatives"
+    ]
+  },
+  {
+    "id": "CAL-03",
+    "topic": "calculus",
+    "difficulty": "medium",
+    "question": "Find the derivative of f(x) = x^3.",
+    "answer": "The derivative is f'(x) = 3x^2.",
+    "steps": [
+      "Apply the power rule",
+      "Multiply by the exponent and reduce the power by one",
+      "Result is 3x^2"
+    ],
+    "tags": [
+      "power rule"
+    ]
+  },
+  {
+    "id": "CAL-04",
+    "topic": "calculus",
+    "difficulty": "medium",
+    "question": "Compute the integral of f(x) = 2x.",
+    "answer": "The integral is x^2 + C.",
+    "steps": [
+      "Apply the reverse power rule",
+      "Increase the power of x by one",
+      "Divide by the new power"
+    ],
+    "tags": [
+      "integration"
+    ]
+  },
+  {
+    "id": "CAL-05",
+    "topic": "calculus",
+    "difficulty": "medium",
+    "question": "Find the derivative of f(x) = x^2 + 4x.",
+    "answer": "The derivative is f'(x) = 2x + 4.",
+    "steps": [
+      "Differentiate x^2 to get 2x",
+      "Differentiate 4x to get 4",
+      "Add the results"
+    ],
+    "tags": [
+      "polynomials"
+    ]
+  },
+  {
+    "id": "CAL-06",
+    "topic": "calculus",
+    "difficulty": "hard",
+    "question": "Find the derivative of f(x) = 1/x.",
+    "answer": "The derivative is f'(x) = -1/x^2.",
+    "steps": [
+      "Rewrite 1/x as x^-1",
+      "Apply the power rule",
+      "The derivative is -1*x^-2"
+    ],
+    "tags": [
+      "negative exponents"
+    ]
+  },
+  {
+    "id": "PROB-01",
+    "topic": "probability",
+    "difficulty": "easy",
+    "question": "What is the probability of rolling a 3 on a fair six-sided die?",
+    "answer": "The probability is 1/6.",
+    "steps": [
+      "There are 6 equally likely outcomes",
+      "Only one favorable outcome",
+      "Probability = 1/6"
+    ],
+    "tags": [
+      "basic probability"
+    ]
+  },
+  {
+    "id": "PROB-02",
+    "topic": "probability",
+    "difficulty": "easy",
+    "question": "What is the probability of getting heads on a fair coin toss?",
+    "answer": "The probability is 1/2.",
+    "steps": [
+      "Two possible outcomes: heads or tails",
+      "One favorable outcome",
+      "Probability = 1/2"
+    ],
+    "tags": [
+      "coin toss"
+    ]
+  },
+  {
+    "id": "PROB-03",
+    "topic": "probability",
+    "difficulty": "medium",
+    "question": "What is the probability of drawing a red card from a standard deck?",
+    "answer": "The probability is 1/2.",
+    "steps": [
+      "There are 52 cards in a deck",
+      "26 of them are red",
+      "Probability = 26/52 = 1/2"
+    ],
+    "tags": [
+      "cards"
+    ]
+  },
+  {
+    "id": "PROB-04",
+    "topic": "probability",
+    "difficulty": "medium",
+    "question": "What is the probability of getting an even number when rolling a die?",
+    "answer": "The probability is 1/2.",
+    "steps": [
+      "Even numbers are 2, 4, and 6",
+      "There are 3 favorable outcomes",
+      "Total outcomes are 6",
+      "Probability = 3/6 = 1/2"
+    ],
+    "tags": [
+      "even numbers"
+    ]
+  },
+  {
+    "id": "PROB-05",
+    "topic": "probability",
+    "difficulty": "hard",
+    "question": "What is the probability of drawing two aces consecutively without replacement?",
+    "answer": "The probability is 1/221.",
+    "steps": [
+      "Probability of first ace is 4/52",
+      "Probability of second ace is 3/51",
+      "Multiply probabilities: (4/52)*(3/51)",
+      "Simplify to get 1/221"
+    ],
+    "tags": [
+      "conditional probability"
+    ]
+  },
+  {
+    "id": "LA-01",
+    "topic": "linear_algebra",
+    "difficulty": "easy",
+    "question": "What is the determinant of a 2x2 identity matrix?",
+    "answer": "The determinant is 1.",
+    "steps": [
+      "The identity matrix has ones on the diagonal",
+      "Determinant is product of diagonal entries",
+      "1 * 1 = 1"
+    ],
+    "tags": [
+      "determinant"
+    ]
+  },
+  {
+    "id": "LA-02",
+    "topic": "linear_algebra",
+    "difficulty": "easy",
+    "question": "What is the transpose of the matrix [[1, 2], [3, 4]]?",
+    "answer": "The transpose is [[1, 3], [2, 4]].",
+    "steps": [
+      "Swap rows and columns",
+      "First row becomes first column",
+      "Second row becomes second column"
+    ],
+    "tags": [
+      "matrix transpose"
+    ]
+  },
+  {
+    "id": "LA-03",
+    "topic": "linear_algebra",
+    "difficulty": "medium",
+    "question": "What is the determinant of the matrix [[1, 2], [3, 4]]?",
+    "answer": "The determinant is -2.",
+    "steps": [
+      "Use formula ad - bc",
+      "Compute 1*4 - 2*3",
+      "Result is -2"
+    ],
+    "tags": [
+      "determinant"
+    ]
+  },
+  {
+    "id": "LA-04",
+    "topic": "linear_algebra",
+    "difficulty": "medium",
+    "question": "What is the rank of the identity matrix?",
+    "answer": "The rank is equal to the size of the matrix.",
+    "steps": [
+      "All rows are linearly independent",
+      "Rank equals number of rows"
+    ],
+    "tags": [
+      "matrix rank"
+    ]
+  },
+  {
+    "id": "LA-05",
+    "topic": "linear_algebra",
+    "difficulty": "hard",
+    "question": "Is the matrix [[1, 2], [2, 4]] invertible?",
+    "answer": "No, the matrix is not invertible.",
+    "steps": [
+      "Compute determinant",
+      "Determinant is 1*4 - 2*2 = 0",
+      "A matrix with zero determinant is not invertible"
+    ],
+    "tags": [
+      "invertibility"
+    ]
+  },
+  {
+    "id": "NT-01",
+    "topic": "number_theory",
+    "difficulty": "easy",
+    "question": "Is 17 a prime number?",
+    "answer": "Yes, 17 is a prime number.",
+    "steps": [
+      "A prime number has exactly two divisors",
+      "17 is divisible only by 1 and itself"
+    ],
+    "tags": [
+      "prime numbers"
+    ]
+  },
+  {
+    "id": "NT-02",
+    "topic": "number_theory",
+    "difficulty": "easy",
+    "question": "What is the greatest common divisor of 12 and 18?",
+    "answer": "The GCD is 6.",
+    "steps": [
+      "List divisors of 12 and 18",
+      "Largest common divisor is 6"
+    ],
+    "tags": [
+      "gcd"
+    ]
+  },
+  {
+    "id": "NT-03",
+    "topic": "number_theory",
+    "difficulty": "medium",
+    "question": "What is the least common multiple of 4 and 6?",
+    "answer": "The LCM is 12.",
+    "steps": [
+      "List multiples of 4 and 6",
+      "The smallest common multiple is 12"
+    ],
+    "tags": [
+      "lcm"
+    ]
+  },
+  {
+    "id": "NT-04",
+    "topic": "number_theory",
+    "difficulty": "hard",
+    "question": "Find the remainder when 17 is divided by 5.",
+    "answer": "The remainder is 2.",
+    "steps": [
+      "17 divided by 5 gives quotient 3",
+      "3*5 = 15",
+      "17 - 15 = 2"
+    ],
+    "tags": [
+      "modular arithmetic"
+    ]
+  }
+]
