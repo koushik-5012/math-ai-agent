@@ -72,13 +72,17 @@ audio	mode=audio, file=audio.wav
 
 In project root:
 
-```bash
-git init
-git status
-Add files carefully
-git add .gitignore .env.example README.md backend frontend docker-compose.yml Dockerfile
-git status
 
+Then all your setup instructions (`git clone`, `docker-compose`, etc.) must come **after** that closing 
+
+---
+
+## Commit and push
+
+```bash
+git add README.md
+git commit -m "Fix broken mermaid block"
+git push
 
 Check files — if .env is staged remove it:
 
