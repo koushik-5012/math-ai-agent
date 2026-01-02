@@ -10,25 +10,41 @@ A multimodal AI agent that solves math problems using:
 ## Architecture
 
 ```mermaid
+
+with this exact content:
+
+```mermaid
 graph TD
     UI[React Frontend]
-    UI -->|POST /ask| API[FastAPI Backend]
+    API[FastAPI Backend]
+    Router
+    TextFlow
+    ImageFlow
+    AudioFlow
+    OCR[Pytesseract OCR]
+    ASR[Speech Recognition]
+    Parser
+    RouterAgent
+    KB[Knowledge Base]
+    VectorStore[FAISS Vector Store]
+
+    UI -->|POST /ask| API
     API --> Router
     Router --> TextFlow
     Router --> ImageFlow
     Router --> AudioFlow
 
-    ImageFlow --> OCR[pytesseract OCR]
-    AudioFlow --> ASR[Speech Recognition]
+    ImageFlow --> OCR
+    AudioFlow --> ASR
 
     TextFlow --> Parser
     OCR --> Parser
     ASR --> Parser
 
     Parser --> RouterAgent
-    RouterAgent --> KB[Knowledge Base]
+    RouterAgent --> KB
     KB --> VectorStore
-    VectorStore --> FAISS
+
 Setup
 Clone repo
 git clone https://github.com/<your-username>/math-ai-agent.git
