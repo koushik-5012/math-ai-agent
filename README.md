@@ -10,10 +10,6 @@ A multimodal AI agent that solves math problems using:
 ## Architecture
 
 ```mermaid
-
-with this exact content:
-
-```mermaid
 graph TD
     UI[React Frontend]
     API[FastAPI Backend]
