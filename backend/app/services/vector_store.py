@@ -1,66 +1,58 @@
 import json
 import faiss
-import numpy as np
 from pathlib import Path
 from backend.app.services.embeddings import EmbeddingService
 
-
 class VectorStore:
-    def __init__(self, index_path="data/faiss.index", metadata_path="data/faiss_meta.json"):
-        self.index_path = index_path
-        self.metadata_path = metadata_path
+    def __init__(self):
+        self.index_path = "data/faiss.index"
+        self.meta_path = "data/faiss_meta.json"
         self.embedder = EmbeddingService()
         self.index = None
         self.metadata = []
 
-    def _build_text(self, q):
-        return (
-            f"Topic: {q['topic']}\n"
-            f"Question: {q['question']}\n"
-            f"Steps: {' '.join(q['steps'])}\n"
-            f"Answer: {q['answer']}"
-        )
-
-    def build_from_json(self, json_path="data/questions.json"):
-        with open(json_path, "r") as f:
-            data = json.load(f)
-
-        texts = []
-        self.metadata = []
-
-        for q in data["questions"]:
-            text = self._build_text(q)
-            texts.append(text)
-            self.metadata.append(q)
-
-        embeddings = self.embedder.embed_texts(texts)
-
-        dimension = embeddings.shape[1]
-        self.index = faiss.IndexFlatL2(dimension)
-        self.index.add(np.array(embeddings).astype("float32"))
-
-        Path(self.index_path).parent.mkdir(parents=True, exist_ok=True)
-
-        faiss.write_index(self.index, self.index_path)
-
-        with open(self.metadata_path, "w") as f:
-            json.dump(self.metadata, f, indent=2)
-
     def load(self):
+        if not Path(self.index_path).exists():
+            print("⚠️ Vector index not found. Skipping vector search.")
+            self.index = None
+            self.metadata = []
+            return
+
         self.index = faiss.read_index(self.index_path)
-        with open(self.metadata_path, "r") as f:
-            self.metadata = json.load(f)
 
-    def search(self, query: str, top_k: int = 3):
-        if self.index is None:
-            self.load()
+        if Path(self.meta_path).exists():
+            with open(self.meta_path) as f:
+                self.metadata = json.load(f)
+        else:
+            self.metadata = []
 
-        query_vec = self.embedder.embed_texts([query]).astype("float32")
-        distances, indices = self.index.search(query_vec, top_k)
+        print(f"📦 Vector index loaded: {len(self.metadata)} entries")
 
-        results = []
-        for idx in indices[0]:
-            if idx < len(self.metadata):
-                results.append(self.metadata[idx])
+    def search(self, query: str, k: int = 3):
+        try:
+            if self.index is None:
+                self.load()
 
-        return results
+            if self.index is None or len(self.metadata) == 0:
+                return []
+
+            q_emb = self.embedder.embed_texts([query]).astype("float32")
+            faiss.normalize_L2(q_emb)
+
+            scores, indices = self.index.search(q_emb, k)
+
+            results = []
+            for idx, score in zip(indices[0], scores[0]):
+                if idx == -1:
+                    continue
+                if idx >= len(self.metadata):
+                    continue
+                item = self.metadata[idx].copy()
+                item["score"] = float(score)
+                results.append(item)
+
+            return results
+
+        except Exception as e:
+            print("❌ Vector search failed:", str(e))
+            return []

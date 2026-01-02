@@ -1,2 +1,15 @@
 fastapi
 uvicorn
+python-dotenv
+openai
+faiss-cpu
+numpy
+pydantic
+tqdm
+sentence-transformers
+pytesseract
+Pillow
+opencv-python-headless
+speechrecognition
+pydub
+python-multipart
