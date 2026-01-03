@@ -26,7 +26,7 @@ class VectorStore:
         else:
             self.metadata = []
 
-        print(f"📦 Vector index loaded: {len(self.metadata)} entries")
+        print(f" Vector index loaded: {len(self.metadata)} entries")
 
     def search(self, query: str, k: int = 3):
         try:
@@ -54,5 +54,5 @@ class VectorStore:
             return results
 
         except Exception as e:
-            print("❌ Vector search failed:", str(e))
+            print(" Vector search failed:", str(e))
             return []
