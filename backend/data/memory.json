@@ -1,0 +1,636 @@
+[
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "The solution is x = 16.",
+    "confidence": 0.85
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "The derivative is f'(x) = 2x.",
+    "confidence": 0.3
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "The solution is x = 16.",
+    "confidence": 0.6638007164001465,
+    "source": "vector_db"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "The derivative is f'(x) = 2x.",
+    "confidence": 0.6169275045394897,
+    "source": "vector_db"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "The solution is x = 16.",
+    "confidence": 0.6638007164001465,
+    "source": "vector_db"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "The solution is x = 16.",
+    "confidence": 0.6638007164001465,
+    "source": "vector_db"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "** \\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}[\\sin x] = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx} \\sin x = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx} \\sin x = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "The derivative of \\( \\sin x \\) is \\( \\cos x \\).",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "The derivative of \\( \\sin x \\) is \\( \\cos x \\).",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx} (\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "** \\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\(\\frac{d}{dx}(\\sin x) = \\cos x\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve 2x+3 = 7",
+    "answer": "\\( x = 2 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve 2x+3 = 7",
+    "answer": "\\( x = 2 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve 2x+3 = 7",
+    "answer": "\\( x = 2 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve 2x+5 = 7",
+    "answer": "\\(x = 1\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "The derivative of \\( \\sin x \\) is \\( \\cos x \\).",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "** \\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "** \\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\(x = 5\\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "solve : 2x+5 = 15",
+    "answer": "\\( x = 5 \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  },
+  {
+    "question": "find the derivative of sin x",
+    "answer": "\\( \\frac{d}{dx}(\\sin x) = \\cos x \\)",
+    "confidence": 0.75,
+    "source": "mcp"
+  }
+]
