@@ -10,6 +10,7 @@ class VectorStore:
         self.embedder = EmbeddingService()
         self.index = None
         self.metadata = []
+        self.load()
 
     def load(self):
         if not Path(self.index_path).exists():

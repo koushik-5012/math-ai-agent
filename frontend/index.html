@@ -1,12 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Math AI Agent</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html>
+<head>
+  <title>Math Professor AI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    textarea,input,button { width:100%; margin:8px 0; padding:10px; }
+    button { background:#4CAF50; color:white; border:none; border-radius:5px; font-size:16px; }
+    #recordBtn { background:#2196F3; }
+    #recordBtn.recording { background:#f44336; }
+    #answer { white-space:pre-wrap; background:#fafafa; padding:15px; border-left:4px solid #4CAF50; }
+    label { font-weight:bold; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+<div style="margin-top:15px;">
+  <button onclick="sendFeedback(true)">👍 Helpful</button>
+  <button onclick="sendFeedback(false)">👎 Not Helpful</button>
+</div>
+<h2>🧠 Math Professor AI</h2>
+
+<label>📝 Text Question:</label>
+<textarea id="question" rows="3" placeholder="Type math question..."></textarea>
+
+<label>📷 Upload Image:</label>
+<input type="file" id="image" accept="image/*">
+
+<label>🎧 Upload WAV Audio:</label>
+<input type="file" id="audio" accept="audio/wav">
+
+<button id="recordBtn" onclick="toggleRecording()">🎤 Start Recording</button>
+<audio id="audioPlayback" controls style="display:none;"></audio>
+
+<button onclick="ask()">Submit</button>
+
+<p id="status"></p>
+<div id="answer"></div>
+</div>
+
+<script>
+let audioContext, processor, input;
+let audioData = [];
+let isRecording = false;
+
+function encodeWAV(samples, sampleRate) {
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+
+  function writeString(view, offset, str){
+    for(let i=0;i<str.length;i++) view.setUint8(offset+i,str.charCodeAt(i));
+  }
+
+  writeString(view,0,"RIFF");
+  view.setUint32(4,36+samples.length*2,true);
+  writeString(view,8,"WAVE");
+  writeString(view,12,"fmt ");
+  view.setUint32(16,16,true);
+  view.setUint16(20,1,true);
+  view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true);
+  view.setUint32(28,sampleRate*2,true);
+  view.setUint16(32,2,true);
+  view.setUint16(34,16,true);
+  writeString(view,36,"data");
+  view.setUint32(40,samples.length*2,true);
+
+  let offset=44;
+  for(let i=0;i<samples.length;i++,offset+=2)
+    view.setInt16(offset,Math.max(-1,Math.min(1,samples[i]))*0x7fff,true);
+
+  return new Blob([view],{type:"audio/wav"});
+}
+
+async function toggleRecording(){
+  const btn=document.getElementById("recordBtn");
+  const playback=document.getElementById("audioPlayback");
+
+  if(!isRecording){
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    audioContext=new AudioContext({sampleRate:16000});
+    input=audioContext.createMediaStreamSource(stream);
+    processor=audioContext.createScriptProcessor(4096,1,1);
+
+    processor.onaudioprocess=e=>audioData.push(...e.inputBuffer.getChannelData(0));
+
+    input.connect(processor);
+    processor.connect(audioContext.destination);
+
+    isRecording=true;
+    btn.classList.add("recording");
+    btn.innerText="⏹ Stop Recording";
+  } else {
+    processor.disconnect();
+    input.disconnect();
+    const blob=encodeWAV(audioData,16000);
+    audioData=[];
+
+    const file=new File([blob],"recorded.wav",{type:"audio/wav"});
+    const dt=new DataTransfer();
+    dt.items.add(file);
+    document.getElementById("audio").files=dt.files;
+
+    playback.src=URL.createObjectURL(blob);
+    playback.style.display="block";
+
+    isRecording=false;
+    btn.classList.remove("recording");
+    btn.innerText="🎤 Start Recording";
+  }
+}
+
+function cleanLatex(text){
+  return text
+    .replace(/\\\\/g,"\\")
+    .replace(/\\\(|\\\)|\\\[|\\\]/g,"")
+    .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g,"($1 / $2)");
+}
+
+async function ask(){
+  const status=document.getElementById("status");
+  const answerBox=document.getElementById("answer");
+
+  const question=document.getElementById("question").value.trim();
+  const image=document.getElementById("image").files[0];
+  const audio=document.getElementById("audio").files[0];
+
+  if(!question && !image && !audio){
+    status.innerText="❌ Provide text, image or audio";
+    return;
+  }
+
+  const fd=new FormData();
+  if(question) fd.append("question",question);
+  if(image) fd.append("image",image);
+  if(audio) fd.append("audio",audio);
+
+  status.innerText="⏳ Processing...";
+  const res=await fetch("/ask",{method:"POST",body:fd});
+  const data=await res.json();
+
+  if(!res.ok){
+    status.innerText="❌ "+data.detail;
+    return;
+  }
+status.innerText="✅ Done";
+
+  let out="";
+  out+="Detected Text: "+data.detected_text+"\n\n";
+  out+="Answer: "+data.answer+"\n\n";
+
+  if(data.steps){
+    out+="Steps:\n";
+    data.steps.forEach((s,i)=> out+=(i+1)+". "+cleanLatex(s)+"\n");
+  }
+out+="\n\nAgent Trace: "+data.agent_trace.join(" → ")+"\n";
+
+if(data.retrieved_context && data.retrieved_context.length){
+  out+="\nRetrieved Context:\n";
+  data.retrieved_context.forEach((c,i)=>out+=(i+1)+". "+JSON.stringify(c)+"\n");
+}
+  out+="\nConfidence: "+Math.round(data.confidence*100)+"%";
+  answerBox.innerText=out;
+}
+async function sendFeedback(isHelpful){
+  await fetch("/feedback",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({helpful:isHelpful})
+  });
+  alert("Thanks for your feedback!");
+}
+</script>
+</body>
 </html>

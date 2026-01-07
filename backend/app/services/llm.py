@@ -1,50 +1,24 @@
-from typing import Optional
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
 
+# Load .env ONCE at import time
 load_dotenv()
 
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    raise RuntimeError("OPENAI_API_KEY is missing. Check your .env file.")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 class LLMService:
-    def __init__(self):
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-    def generate_answer(
-        self,
-        question: str,
-        context: str,
-        system_override: Optional[str] = None
-    ) -> str:
-        system_prompt = (
-            system_override
-            if system_override
-            else "You are a helpful math professor. Explain clearly in plain text. Use LaTeX only when necessary."
-
+    def generate_answer(self, question: str, context: str = "") -> str:
+        response = client.responses.create(
+            model="gpt-4.1-mini",
+            input=[
+                {"role": "system", "content": "You are a helpful math professor."},
+                {"role": "user", "content": f"{context}\n\n{question}"}
+            ]
         )
-
-        messages = [
-            {"role": "system", "content": system_prompt},
-        ]
-
-        if context:
-            messages.append(
-                {
-                    "role": "user",
-                    "content": f"Context:\n{context}\n\nQuestion:\n{question}",
-                }
-            )
-        else:
-            messages.append(
-                {
-                    "role": "user",
-                    "content": question,
-                }
-            )
-
-        response = self.client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=messages,
-        )
-
-        return response.choices[0].message.content
+        return response.output_text.strip()

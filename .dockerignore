@@ -1,7 +1,39 @@
-venv
-__pycache__
+ # ---------- SECRETS ----------
 .env
-.git
+.env.*
+*.env
+
+# ---------- GIT ----------
+.git/
 .gitignore
-logs
+
+# ---------- PYTHON ----------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# ---------- NODE ----------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ---------- BUILD ARTIFACTS ----------
+dist/
+build/
+*.egg-info/
+
+# ---------- OS / EDITOR ----------
 .DS_Store
+.vscode/
+.idea/
+
+# ---------- LOGS ----------
+*.log
+logs/
+
+# ---------- DO NOT IGNORE FRONTEND ----------
+# frontend MUST be included

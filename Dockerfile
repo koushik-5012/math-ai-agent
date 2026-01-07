@@ -1,6 +1,5 @@
 FROM python:3.9-slim
 
-# Prevent Python from writing pyc files & enable logs
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app/backend
@@ -10,11 +9,10 @@ WORKDIR /app
 # ---------- SYSTEM DEPENDENCIES ----------
 RUN apt-get update && apt-get install -y \
     build-essential \
+    ffmpeg \
+    flac \
     tesseract-ocr \
     libtesseract-dev \
-    libleptonica-dev \
-    poppler-utils \
-    ffmpeg \
     libsm6 \
     libxext6 \
     libgl1 \
@@ -23,12 +21,11 @@ RUN apt-get update && apt-get install -y \
 
 # ---------- PYTHON DEPENDENCIES ----------
 COPY backend/requirements.txt .
-
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # ---------- APP FILES ----------
 COPY backend ./backend
+COPY frontend ./frontend
 COPY data ./data
 
 # ---------- SERVER ----------
