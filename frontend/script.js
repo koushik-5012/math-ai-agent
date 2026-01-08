@@ -1,3 +1,5 @@
+const BASE = window.location.origin;
+
 async function ask(){
   const status=document.getElementById("status");
   const answerBox=document.getElementById("answer");
@@ -20,7 +22,7 @@ async function ask(){
   answerBox.innerText="";
 
   try{
-    const res=await fetch("/ask",{method:"POST",body:fd});
+    const res=await fetch(`${BASE}/ask`,{method:"POST",body:fd});
     const data=await res.json();
 
     if(!res.ok){
@@ -30,8 +32,16 @@ async function ask(){
 
     status.innerText="✅ Done";
     answerBox.innerText=data.answer;
-
   }catch(err){
     status.innerText="❌ Backend unreachable";
   }
+}
+
+async function sendFeedback(isHelpful){
+  await fetch(`${BASE}/feedback`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({helpful:isHelpful})
+  });
+  alert("Thanks for your feedback!");
 }
