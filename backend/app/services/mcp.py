@@ -1,33 +1,34 @@
-from openai import OpenAI
-import os, re
-from dotenv import load_dotenv
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
 
-def call_mcp(question: str) -> dict:
-    res = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "Solve step by step and end with: Final Answer:"},
-            {"role": "user", "content": question}
-        ]
+tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_ID,
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
+
+def call_mcp(prompt: str) -> str:
+    system_prompt = f"""
+You are a senior mathematics professor.
+Solve clearly with steps.
+
+Question:
+{prompt}
+
+Answer:
+"""
+
+    inputs = tokenizer(system_prompt, return_tensors="pt").to(model.device)
+
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=350,
+        temperature=0.2,
+        do_sample=True
     )
 
-    text = res.choices[0].message.content.strip()
-
-    steps = []
-    answer = text
-
-    if "Final Answer:" in text:
-        body, answer = text.split("Final Answer:")
-        for line in body.split("\n"):
-            line = re.sub(r"^\d+\.\s*", "", line).strip()
-            if line:
-                steps.append(line)
-
-    return {
-        "final_answer": answer.strip(),
-        "steps": steps,
-        "confidence": 0.75
-    }
+    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return result.split("Answer:")[-1].strip()
