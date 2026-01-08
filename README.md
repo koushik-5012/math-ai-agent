@@ -1,94 +1,36 @@
-# Math AI Agent
-
-A multimodal AI system that solves math problems using:
-
-- Text input
-- Image OCR
-- Audio speech recognition
-
+---
+title: Math Professor AI
+emoji: 🧮
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+pinned: false
 ---
 
-## Architecture
+# Math Professor AI – Multimodal LLM Agent
 
-```mermaid
-graph TD
-    UI[React Frontend]
-    API[FastAPI Backend]
-    Router[Request Router]
-    TextFlow[Text Input Flow]
-    ImageFlow[Image Input Flow]
-    AudioFlow[Audio Input Flow]
-    OCR[Pytesseract OCR]
-    ASR[Speech Recognition]
-    Parser[Problem Parser]
-    RouterAgent[Intent Router]
-    KB[Knowledge Base]
-    VectorStore[FAISS Vector Store]
+A production-grade multimodal AI agent capable of solving mathematical problems from:
 
-    UI --> API
-    API --> Router
+- 📝 Text input  
+- 🖼️ Image OCR (Tesseract)  
+- 🎤 Audio transcription (FFmpeg + SpeechRecognition)
 
-    Router --> TextFlow
-    Router --> ImageFlow
-    Router --> AudioFlow
+Built with **FastAPI + Docker** and deployed on HuggingFace Spaces.
 
-    ImageFlow --> OCR
-    AudioFlow --> ASR
+## Features
 
-    TextFlow --> Parser
-    OCR --> Parser
-    ASR --> Parser
+- Text / Image / Audio unified `/ask` API
+- Automatic OCR and speech-to-text pipeline
+- Vector retrieval support
+- Dockerized runtime with system dependencies
+- Production-grade backend using Uvicorn
 
-    Parser --> RouterAgent
-    RouterAgent --> KB
-    KB --> VectorStore
+## API
 
-Setup
-Clone repository
-git clone https://github.com/koushik-5012/math-ai-agent.git
-cd math-ai-agent
-
-Run Backend (Docker)
-docker compose up --build
-
-
-Open API docs:
-
-http://localhost:7860/docs
-
-API Usage
-
-Endpoint:
-
-POST /ask
-
+`POST /ask`
 
 Form fields:
 
-Field	Type	Description
-mode	string	text / image / audio
-question	string	text input (for text mode)
-file	file	image or audio file
-Tech Stack
-
-FastAPI
-
-FAISS
-
-React
-
-Docker
-
-Pytesseract
-
-SpeechRecognition
-
-
----
-
-## Step 3 — Commit and push
-
-```bash
-git add README.md
-git commit -m "Fix README mermaid architecture diagram"
-git push
+- `mode`: `text | image | audio`
+- `question`: required for text
+- `file`: required for image/audio
