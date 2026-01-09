@@ -2,8 +2,5 @@ fastapi
 uvicorn
 python-dotenv
 openai
-pytesseract
-Pillow
-speechrecognition
-pydub
 python-multipart
+#minimal requirements
