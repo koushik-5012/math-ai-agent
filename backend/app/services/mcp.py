@@ -1,34 +1,48 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
-MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+load_dotenv()
 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
-model = AutoModelForCausalLM.from_pretrained(
-    MODEL_ID,
-    torch_dtype=torch.float16,
-    device_map="auto"
-)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def call_mcp(prompt: str) -> str:
-    system_prompt = f"""
-You are a senior mathematics professor.
-Solve clearly with steps.
 
-Question:
-{prompt}
+def call_mcp(question: str):
+    """
+    Calls OpenAI to solve math questions and return structured reasoning.
+    """
 
-Answer:
+    system_prompt = """
+You are Math Professor AI.
+
+You must return output strictly in this JSON format:
+
+{
+  "final_answer": "...",
+  "steps": ["step1", "step2", "..."],
+  "confidence": 0.0-1.0
+}
+
+Answer clearly with full reasoning steps.
 """
 
-    inputs = tokenizer(system_prompt, return_tensors="pt").to(model.device)
-
-    outputs = model.generate(
-        **inputs,
-        max_new_tokens=350,
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": question}
+        ],
         temperature=0.2,
-        do_sample=True
+        max_tokens=500
     )
 
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    return result.split("Answer:")[-1].strip()
+    raw = response.choices[0].message.content.strip()
+
+    try:
+        return eval(raw)   # MCP returns structured JSON-like output
+    except:
+        return {
+            "final_answer": raw,
+            "steps": [],
+            "confidence": 0.5
+        }
