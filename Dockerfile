@@ -24,4 +24,4 @@ COPY backend ./backend
 COPY frontend ./frontend
 COPY data ./data
 
-CMD uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT}"]
