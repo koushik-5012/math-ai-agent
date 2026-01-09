@@ -1,29 +1,28 @@
 import os
+import json
 from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise RuntimeError("OPENAI_API_KEY not found in environment")
+
+client = OpenAI(api_key=api_key)
 
 
 def call_mcp(question: str):
-    """
-    Calls OpenAI to solve math questions and return structured reasoning.
-    """
-
     system_prompt = """
 You are Math Professor AI.
 
-You must return output strictly in this JSON format:
+Return ONLY valid JSON in this format:
 
 {
   "final_answer": "...",
-  "steps": ["step1", "step2", "..."],
-  "confidence": 0.0-1.0
+  "steps": ["step1", "step2"],
+  "confidence": 0.0
 }
-
-Answer clearly with full reasoning steps.
 """
 
     response = client.chat.completions.create(
@@ -39,10 +38,11 @@ Answer clearly with full reasoning steps.
     raw = response.choices[0].message.content.strip()
 
     try:
-        return eval(raw)   # MCP returns structured JSON-like output
-    except:
+        return json.loads(raw)
+    except Exception as e:
         return {
             "final_answer": raw,
             "steps": [],
-            "confidence": 0.5
+            "confidence": 0.5,
+            "error": "Invalid JSON from model"
         }

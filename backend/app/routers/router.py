@@ -2,11 +2,7 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from typing import Optional
 import pytesseract
 from PIL import Image
-import io
-import tempfile
-import subprocess
-import os
-import speech_recognition as sr
+import io, os, tempfile, subprocess, speech_recognition as sr
 
 from backend.app.services.kb import answer_math_question
 from backend.app.agents.parser import parse_problem
@@ -22,27 +18,27 @@ async def ask_question(
     audio: Optional[UploadFile] = File(None),
 ):
     if not question and not image and not audio:
-        raise HTTPException(400, "At least one input is required")
+        raise HTTPException(status_code=400, detail="At least one input is required")
 
     extracted_text = ""
 
-    # -------- TEXT --------
+    # ---------- TEXT ----------
     if question:
         extracted_text = question.strip()
 
-    # -------- IMAGE --------
+    # ---------- IMAGE ----------
     elif image:
-        content = await image.read()
-        img = Image.open(io.BytesIO(content)).convert("L")
-        extracted_text = pytesseract.image_to_string(img).strip()
-        if not extracted_text:
-            raise HTTPException(400, "No text detected in image")
+        try:
+            content = await image.read()
+            img = Image.open(io.BytesIO(content)).convert("L")
+            extracted_text = pytesseract.image_to_string(img).strip()
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid image file")
 
-    # -------- AUDIO --------
+    # ---------- AUDIO ----------
     elif audio:
         raw_path = None
         pcm_path = None
-
         try:
             content = await audio.read()
             with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as raw:
@@ -51,14 +47,14 @@ async def ask_question(
 
             pcm_path = raw_path.replace(".wav", "_pcm.wav")
 
-            # Convert ANY audio to PCM WAV
-            subprocess.run([
-                "ffmpeg", "-y", "-i", raw_path,
-                "-acodec", "pcm_s16le",
-                "-ac", "1",
-                "-ar", "16000",
-                pcm_path
-            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            process = subprocess.run(
+                ["ffmpeg", "-y", "-i", raw_path, "-ac", "1", "-ar", "16000", pcm_path],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+
+            if process.returncode != 0:
+                raise HTTPException(status_code=400, detail="Unsupported audio format")
 
             recognizer = sr.Recognizer()
             with sr.AudioFile(pcm_path) as source:
@@ -66,9 +62,9 @@ async def ask_question(
                 extracted_text = recognizer.recognize_google(audio_data)
 
         except sr.UnknownValueError:
-            raise HTTPException(400, "Could not understand audio")
-        except Exception as e:
-            raise HTTPException(500, f"Audio processing failed: {str(e)}")
+            raise HTTPException(status_code=400, detail="Could not understand audio")
+        except Exception:
+            raise HTTPException(status_code=500, detail="Audio processing failed")
         finally:
             if raw_path and os.path.exists(raw_path):
                 os.remove(raw_path)
@@ -76,7 +72,7 @@ async def ask_question(
                 os.remove(pcm_path)
 
     if not extracted_text:
-        raise HTTPException(400, "No text extracted")
+        raise HTTPException(status_code=400, detail="No text extracted")
 
     parsed = parse_problem(extracted_text)
     intent = route_intent(parsed)

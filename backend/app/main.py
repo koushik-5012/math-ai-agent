@@ -1,30 +1,31 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+import os, json
+from dotenv import load_dotenv
+from openai import OpenAI
 
-from backend.app.routers.router import router as ask_router
-from backend.app.routers.feedback import router as feedback_router
+load_dotenv()
 
-app = FastAPI(title="Math Professor AI")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Routers
-app.include_router(ask_router)
-app.include_router(feedback_router)
+def call_mcp(question: str):
 
-# Serve frontend UI
-app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
+    response = client.responses.create(
+        model="gpt-4.1-mini",
+        input=f"""
+Solve this math problem step-by-step and return ONLY valid JSON:
 
+{{
+  "final_answer": "...",
+  "steps": ["step1","step2"],
+  "confidence": 0.0
+}}
 
-@app.get("/", response_class=HTMLResponse)
-def root():
-    return """
-    <html>
-        <head><title>Math Professor AI</title></head>
-        <body style="font-family: Arial; padding:40px">
-            <h1>Math Professor AI – Multimodal LLM Agent</h1>
-            <p>Backend is running successfully on HuggingFace Spaces.</p>
-            <p>Open the UI at <a href="/ui">/ui</a></p>
-            <p>Use <code>POST /ask</code> to interact with the API.</p>
-        </body>
-    </html>
-    """
+Question: {question}
+"""
+    )
+
+    raw = response.output_text.strip()
+
+    try:
+        return json.loads(raw)
+    except:
+        return {"final_answer": raw, "steps": [], "confidence": 0.5}

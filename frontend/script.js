@@ -7,7 +7,7 @@ async function ask(){
   const audio = document.getElementById("audio").files[0];
 
   if(!question && !image && !audio){
-    status.innerText = " Provide text, image or audio";
+    status.innerText = "❌ Provide text, image or audio";
     return;
   }
 
@@ -29,7 +29,21 @@ async function ask(){
     }
 
     status.innerText = "✅ Done";
-    answerBox.innerText = data.answer;
+
+    let out = "";
+    out += "Detected Text:\n" + data.detected_text + "\n\n";
+    out += "Answer:\n" + data.answer + "\n\n";
+
+    if(data.steps && data.steps.length){
+      out += "Steps:\n";
+      data.steps.forEach((s,i)=> out += (i+1)+". "+s+"\n");
+      out += "\n";
+    }
+
+    out += "Agent Trace: " + data.agent_trace.join(" → ") + "\n";
+    out += "Confidence: " + Math.round(data.confidence*100) + "%";
+
+    answerBox.innerText = out;
   }
   catch(err){
     console.error(err);

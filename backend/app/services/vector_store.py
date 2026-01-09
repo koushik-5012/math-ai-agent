@@ -1,5 +1,6 @@
 import json
 import faiss
+import numpy as np
 from pathlib import Path
 from backend.app.services.embeddings import EmbeddingService
 
@@ -14,7 +15,7 @@ class VectorStore:
 
     def load(self):
         if not Path(self.index_path).exists():
-            print("⚠️ Vector index not found. Skipping vector search.")
+            print("⚠️ No vector index found. Running without KB retrieval.")
             self.index = None
             self.metadata = []
             return
@@ -27,14 +28,11 @@ class VectorStore:
         else:
             self.metadata = []
 
-        print(f" Vector index loaded: {len(self.metadata)} entries")
+        print(f"✅ Vector index loaded with {len(self.metadata)} records")
 
     def search(self, query: str, k: int = 3):
         try:
-            if self.index is None:
-                self.load()
-
-            if self.index is None or len(self.metadata) == 0:
+            if self.index is None or not self.metadata:
                 return []
 
             q_emb = self.embedder.embed_texts([query]).astype("float32")
@@ -44,9 +42,7 @@ class VectorStore:
 
             results = []
             for idx, score in zip(indices[0], scores[0]):
-                if idx == -1:
-                    continue
-                if idx >= len(self.metadata):
+                if idx < 0 or idx >= len(self.metadata):
                     continue
                 item = self.metadata[idx].copy()
                 item["score"] = float(score)
@@ -55,5 +51,5 @@ class VectorStore:
             return results
 
         except Exception as e:
-            print(" Vector search failed:", str(e))
+            print("❌ Vector search error:", e)
             return []
