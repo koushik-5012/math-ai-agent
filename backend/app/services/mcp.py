@@ -1,5 +1,4 @@
-import os
-import json
+import os, json
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -7,10 +6,9 @@ load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
-    raise RuntimeError("OPENAI_API_KEY not found in environment")
+    raise RuntimeError("OPENAI_API_KEY not found")
 
 client = OpenAI(api_key=api_key)
-
 
 def call_mcp(question: str):
     system_prompt = """
@@ -32,17 +30,16 @@ Return ONLY valid JSON in this format:
             {"role": "user", "content": question}
         ],
         temperature=0.2,
-        max_tokens=500
+        max_tokens=400
     )
 
     raw = response.choices[0].message.content.strip()
 
     try:
         return json.loads(raw)
-    except Exception as e:
+    except:
         return {
             "final_answer": raw,
             "steps": [],
-            "confidence": 0.5,
-            "error": "Invalid JSON from model"
+            "confidence": 0.5
         }

@@ -1,31 +1,24 @@
-import os, json
 from dotenv import load_dotenv
-from openai import OpenAI
-
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from backend.app.routers.router import router
 
-def call_mcp(question: str):
+app = FastAPI(title="Math Professor AI")
 
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=f"""
-Solve this math problem step-by-step and return ONLY valid JSON:
+app.include_router(router)
 
-{{
-  "final_answer": "...",
-  "steps": ["step1","step2"],
-  "confidence": 0.0
-}}
+app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
 
-Question: {question}
-"""
-    )
-
-    raw = response.output_text.strip()
-
-    try:
-        return json.loads(raw)
-    except:
-        return {"final_answer": raw, "steps": [], "confidence": 0.5}
+@app.get("/", response_class=HTMLResponse)
+def root():
+    return """
+    <html>
+      <body style="font-family:Arial;padding:40px">
+        <h2>Math Professor AI is running 🚀</h2>
+        <p>Open UI at <a href="/ui">/ui</a></p>
+      </body>
+    </html>
+    """
