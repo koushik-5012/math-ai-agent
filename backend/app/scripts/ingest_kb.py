@@ -7,7 +7,7 @@ from openai import OpenAI
 # Fix python path so "backend" imports work
 sys.path.append(os.path.abspath("."))
 
-from backend.app.services.vector_store import init_collection, upsert
+from app.services.vector_store import init_collection, upsert
 
 # Load env
 load_dotenv()

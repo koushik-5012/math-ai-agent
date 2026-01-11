@@ -4,7 +4,7 @@ import pytesseract
 from PIL import Image
 import io, os, tempfile, subprocess, speech_recognition as sr
 
-from backend.app.services.rag import rag_answer
+from app.services.rag import rag_answer
 
 router = APIRouter()
 

@@ -1,7 +1,6 @@
-from backend.app.services.vector_store import search
-from backend.app.services.mcp import call_mcp
-from backend.app.services.openai_embedder import embed_text
-
+from app.services.vector_store import search
+from app.services.mcp import call_mcp
+from app.services.openai_embedder import embed_text
 
 def rag_answer(query: str):
     """
