@@ -15,38 +15,45 @@ async def ask_question(
     image: Optional[UploadFile] = File(None),
     audio: Optional[UploadFile] = File(None),
 ):
-    # ---------- FIX EMPTY MULTIPART BUG ----------
+    extracted_text = ""
+
+    # ---------- CLEAN EMPTY MULTIPART ----------
     if question is not None and question.strip() == "":
         question = None
-    if image is not None and not hasattr(image, "read"):
+    if image and image.filename == "":
         image = None
-    if audio is not None and not hasattr(audio, "read"):
+    if audio and audio.filename == "":
         audio = None
 
     if not question and not image and not audio:
         raise HTTPException(status_code=400, detail="At least one input is required")
 
-    extracted_text = ""
-
-    # -------- TEXT INPUT --------
+    # ---------- TEXT ----------
     if question:
         extracted_text = question.strip()
 
-    # -------- IMAGE OCR --------
+    # ---------- IMAGE ----------
     elif image:
         try:
             content = await image.read()
+            if not content:
+                raise ValueError("Empty image file")
+
             img = Image.open(io.BytesIO(content)).convert("L")
             extracted_text = pytesseract.image_to_string(img).strip()
-        except Exception as e:
-            print("OCR ERROR:", e)
-            raise HTTPException(400, "Unable to extract text from image")
 
-    # -------- AUDIO SPEECH --------
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Image OCR failed: {str(e)}")
+
+    # ---------- AUDIO ----------
     elif audio:
-        raw_path, pcm_path = None, None
+        raw_path = None
+        pcm_path = None
         try:
             content = await audio.read()
+            if not content:
+                raise ValueError("Empty audio file")
+
             with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as raw:
                 raw.write(content)
                 raw_path = raw.name
@@ -55,6 +62,7 @@ async def ask_question(
 
             subprocess.run(
                 ["ffmpeg", "-y", "-i", raw_path, "-acodec", "pcm_s16le", "-ac", "1", "-ar", "16000", pcm_path],
+                check=True,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
             )
@@ -65,8 +73,7 @@ async def ask_question(
                 extracted_text = r.recognize_google(audio_data)
 
         except Exception as e:
-            print("AUDIO ERROR:", e)
-            raise HTTPException(400, "Unable to extract text from audio")
+            raise HTTPException(status_code=400, detail=f"Audio processing failed: {str(e)}")
 
         finally:
             if raw_path and os.path.exists(raw_path):
@@ -75,14 +82,16 @@ async def ask_question(
                 os.remove(pcm_path)
 
     if not extracted_text:
-        raise HTTPException(400, "No text extracted")
+        raise HTTPException(status_code=400, detail="No text extracted")
 
-    # -------- RAG PIPELINE --------
-    result = rag_answer(extracted_text)
+    try:
+        result = rag_answer(extracted_text)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"RAG failure: {str(e)}")
 
     return {
         "detected_text": extracted_text,
-        "answer": result.get("answer"),
+        "answer": result.get("answer", ""),
         "steps": result.get("steps", []),
         "confidence": result.get("confidence", 0.0),
         "retrieved_context": result.get("retrieved_context", []),
