@@ -31,7 +31,7 @@ def rag_answer(query: str):
 
     # Call MCP with injected context
     mcp = call_mcp(query, context)
-
+# Final output
     return {
         "detected_text": query,
         "answer": mcp["final_answer"],
