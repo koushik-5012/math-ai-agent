@@ -15,6 +15,14 @@ async def ask_question(
     image: Optional[UploadFile] = File(None),
     audio: Optional[UploadFile] = File(None),
 ):
+    # ---------- FIX EMPTY MULTIPART BUG ----------
+    if question is not None and question.strip() == "":
+        question = None
+    if image is not None and not hasattr(image, "read"):
+        image = None
+    if audio is not None and not hasattr(audio, "read"):
+        audio = None
+
     if not question and not image and not audio:
         raise HTTPException(status_code=400, detail="At least one input is required")
 
@@ -30,13 +38,13 @@ async def ask_question(
             content = await image.read()
             img = Image.open(io.BytesIO(content)).convert("L")
             extracted_text = pytesseract.image_to_string(img).strip()
-        except Exception:
+        except Exception as e:
+            print("OCR ERROR:", e)
             raise HTTPException(400, "Unable to extract text from image")
 
     # -------- AUDIO SPEECH --------
     elif audio:
-        raw_path = None
-        pcm_path = None
+        raw_path, pcm_path = None, None
         try:
             content = await audio.read()
             with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as raw:
@@ -56,7 +64,8 @@ async def ask_question(
                 audio_data = r.record(source)
                 extracted_text = r.recognize_google(audio_data)
 
-        except Exception:
+        except Exception as e:
+            print("AUDIO ERROR:", e)
             raise HTTPException(400, "Unable to extract text from audio")
 
         finally:
@@ -70,11 +79,11 @@ async def ask_question(
 
     # -------- RAG PIPELINE --------
     result = rag_answer(extracted_text)
-#-------------Answer output structure----------------
+
     return {
         "detected_text": extracted_text,
         "answer": result.get("answer"),
-        "steps": result.get("steps"),
-        "confidence": result.get("confidence"),
-        "retrieved_context": result.get("retrieved_context"),
+        "steps": result.get("steps", []),
+        "confidence": result.get("confidence", 0.0),
+        "retrieved_context": result.get("retrieved_context", []),
     }
