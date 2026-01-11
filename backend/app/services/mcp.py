@@ -3,27 +3,34 @@ import json
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# Load env once
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
-    raise RuntimeError("OPENAI_API_KEY missing. Set it in Railway variables.")
+    raise RuntimeError("OPENAI_API_KEY missing")
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = OpenAI()
 
 
-def call_mcp(question: str) -> dict:
+def call_mcp(question: str, context: str = "") -> dict:
     system_prompt = """
-You are Math Professor AI.
+You are a Math Professor AI.
 
-Return ONLY valid JSON exactly in this format:
+Return ONLY valid JSON in this exact format:
 
 {
   "final_answer": "...",
-  "steps": ["step1", "step2", "..."],
+  "steps": ["step1", "step2"],
   "confidence": 0.0
 }
+"""
+
+    user_prompt = f"""
+Question:
+{question}
+
+Relevant Context:
+{context}
 """
 
     try:
@@ -31,18 +38,17 @@ Return ONLY valid JSON exactly in this format:
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": question}
+                {"role": "user", "content": user_prompt}
             ],
             temperature=0.2,
-            max_tokens=500
+            max_tokens=600
         )
 
         raw = response.choices[0].message.content.strip()
 
         try:
-            parsed = json.loads(raw)
-            return parsed
-        except Exception:
+            return json.loads(raw)
+        except:
             return {
                 "final_answer": raw,
                 "steps": [],
