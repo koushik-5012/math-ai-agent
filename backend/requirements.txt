@@ -2,5 +2,11 @@ fastapi
 uvicorn
 python-dotenv
 openai
+numpy
+faiss-cpu
+pytesseract
+Pillow
+opencv-python-headless
+SpeechRecognition
+pydub
 python-multipart
-#minimal requirements
