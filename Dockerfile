@@ -1,6 +1,5 @@
 FROM python:3.10-slim
 
-# System dependencies
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     tesseract-ocr \
@@ -14,7 +13,11 @@ COPY backend/requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY backend .
+# copy backend
+COPY backend/app ./app
+
+# copy frontend
+COPY frontend ./frontend
 
 ENV PYTHONPATH=/app
 
