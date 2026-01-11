@@ -90,9 +90,9 @@ async def ask_question(
         raise HTTPException(status_code=500, detail=f"RAG failure: {str(e)}")
 
     return {
-        "detected_text": extracted_text,
-        "answer": result.get("answer", ""),
-        "steps": result.get("steps", []),
-        "confidence": result.get("confidence", 0.0),
-        "retrieved_context": result.get("retrieved_context", []),
-    }
+    "detected_text": extracted_text,
+    "answer": result["answer"],
+    "steps": result["steps"],
+    "confidence": result["confidence"],
+    "agent_trace": result["agent_trace"],
+}

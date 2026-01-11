@@ -1,27 +1,22 @@
-import os
-import json
+import os, json
 from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
-    raise RuntimeError("OPENAI_API_KEY missing")
-
-client = OpenAI()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def call_mcp(question: str, context: str = "") -> dict:
     system_prompt = """
-You are a Math Professor AI.
+You are Math Professor AI.
 
-Return ONLY valid JSON in this exact format:
+Return ONLY valid JSON exactly in this format:
 
 {
   "final_answer": "...",
   "steps": ["step1", "step2"],
-  "confidence": 0.0
+  "confidence": 0.0,
+  "agent_trace": ["OCR","VectorSearch","MCPReasoning"]
 }
 """
 
@@ -29,36 +24,31 @@ Return ONLY valid JSON in this exact format:
 Question:
 {question}
 
-Relevant Context:
+Context:
 {context}
 """
 
     try:
-        response = client.chat.completions.create(
+        res = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
+                {"role":"system","content":system_prompt},
+                {"role":"user","content":user_prompt}
             ],
             temperature=0.2,
-            max_tokens=600
+            max_tokens=500
         )
 
-        raw = response.choices[0].message.content.strip()
+        raw = res.choices[0].message.content.strip()
+        parsed = json.loads(raw)
 
-        try:
-            return json.loads(raw)
-        except:
-            return {
-                "final_answer": raw,
-                "steps": [],
-                "confidence": 0.5
-            }
+        return parsed
 
     except Exception as e:
         return {
-            "final_answer": "LLM service unavailable.",
+            "final_answer": "LLM unavailable.",
             "steps": [],
             "confidence": 0.0,
+            "agent_trace": ["MCP_ERROR"],
             "error": str(e)
         }
