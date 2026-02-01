@@ -12,7 +12,7 @@ META_PATH = os.path.join(DATA_DIR, "kb_meta.json")
 
 DIM = 1536  # text-embedding-3-small dimension
 
-
+# Initialize FAISS index and metadata store
 def init_collection():
     if not os.path.exists(INDEX_PATH):
         index = faiss.IndexFlatL2(DIM)
